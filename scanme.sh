@@ -1,6 +1,4 @@
-#!/bin/bash
-
-i#!/bin/bash -x
+#!/bin/bash -x
 
 list_fast_all_nmap() {
     if [[ $# -eq 1 ]];then
