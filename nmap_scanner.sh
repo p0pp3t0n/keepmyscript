@@ -10,7 +10,7 @@ fast_nmap_script() {
 }
 
 fast_all_nmap_script() {
-    if [[ $# -eq 2 ]];then
+    if [[ $# -eq 1 ]];then
         mkdir -p ${result_dir}/$2
         nmap -sS -sV -sC -A -T4 --max-scan-delay 500ms -max-retries 2 -PE -PP -PS80,443 -PA3389 -PU40125 -g 53 -oA "${result_dir}/$2/$2_fast" $1
     else
@@ -19,13 +19,13 @@ fast_all_nmap_script() {
 }
 
 fast_nmap_script_list() {
-    if [[ $# -eq 2 ]];then
+    if [[ $# -eq 1 ]];then
         echo $#
         if [[ $# -eq 1 ]];then
           for i in $(cat $1);do
             dirname=$( echo "${i}" | cut -d "/" -f1)
             mkdir -p ${result_dir}/"${dirname}"
-            nmap -sS -sV -sC -A -T4 --max-scan-delay 500ms -max-retries 2 -PE -PP -PS80,443 -PA3389 -PU40125 -g 53 -oA "${result_dir}/${dirname}/${dirname}_nmap_results" ${i}
+            nmap -sV -sC -T4 -Pn -max-retries 2 -p- -g 53 -oA "${result_dir}/${dirname}/${dirname}_nmap_results" ${i}
           done
         fi
     else
